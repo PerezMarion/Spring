@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class UnitTests {
 
     @Test
-    void testAjoutClient() {
+    public void testAjoutClient() {
         Service service = new Service();
         Client client = new Client();
         client.setFirstName("Alain");
@@ -16,5 +16,16 @@ public class UnitTests {
         service.addClient(client);
 
         Assertions.assertEquals(1, service.getAllClients().size());
+    }
+
+    @Test
+    public void testFindClient() {
+        Service service = new Service();
+        Client client = new Client();
+        client.setFirstName("Alain");
+        client.setLastName("Delon");
+        service.addClient(client);
+
+        Assertions.assertNotNull(service.findClientById(1L));
     }
 }
