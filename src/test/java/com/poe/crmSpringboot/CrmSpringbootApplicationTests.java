@@ -1,7 +1,7 @@
 package com.poe.crmSpringboot;
 
 import com.poe.crmSpringboot.business.Client;
-import com.poe.crmSpringboot.business.service.Service;
+import com.poe.crmSpringboot.business.service.ServicesClientOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ class CrmSpringbootApplicationTests {
 
 	// Ici pas besoin de faire Service service = new Service() grace à l'anotation
 	@Autowired
-	Service service;
+    ServicesClientOrder service;
 
 	@Test
 	void contextLoads() {

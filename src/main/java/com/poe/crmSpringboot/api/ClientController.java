@@ -1,7 +1,7 @@
 package com.poe.crmSpringboot.api;
 
 import com.poe.crmSpringboot.business.Client;
-import com.poe.crmSpringboot.business.service.Service;
+import com.poe.crmSpringboot.business.service.ServicesClientOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ClientController {
     // car Spring la recherche directement dans le bean correspondant, ce qui nous permet d'utiliser
     // les méthodes du bean injecté
     @Autowired
-    Service service;
+    ServicesClientOrder service;
 
     // @GetMapping : traitement d'une requête http GET et mapping de cette requête
     // Equivalent à une annotation @GET + une annotation @RequestMapping
@@ -49,5 +49,18 @@ public class ClientController {
     // @RequestBody : liaison entre l'objet "client" et le corps d'une requête http
     public void add(@RequestBody Client client) {
         service.addClient(client);
+    }
+
+    // Traitement d'une requête http DELETE et mapping de cette requête
+    // Equivalent à une annotation @DELETE + une annotation @RequestMapping
+    @DeleteMapping("clients/{id}")
+    public ResponseEntity<Client> delete(@PathVariable("id") Long id) {
+
+        boolean hasDeleted = service.deleteClient(id);
+        if(hasDeleted == true) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
