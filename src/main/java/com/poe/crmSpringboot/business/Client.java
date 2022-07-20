@@ -1,16 +1,29 @@
 package com.poe.crmSpringboot.business;
 
+import javax.persistence.*;
+
 // Classe avec code métier d'où le package business
+@Entity
+@Table(name="clients")
 public class Client {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // On doit rajouter cette annotation car il y a une auto conversion de companyName (camelCase) en
+    // company_name (snake_case) qui est normalement la bonne écriture pour une colonne de base de données
+    // (mais là on a (malheureusement) gardé le camelCase dans la bdd)
+    @Column(name = "companyName")
     private String companyName;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
     private String email;
     private String phone;
     private String address;
+    @Column(name = "zipCode")
     private String zipCode;
     private String city;
     private String country;
