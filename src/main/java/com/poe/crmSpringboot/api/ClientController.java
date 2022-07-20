@@ -17,9 +17,9 @@ import java.util.Optional;
 public class ClientController {
 
     // @Autowired : injection de Service dans cette classe (récupération automatique du bean)
-    // On a plus besoin de déclarer la variable Service ici (Service service = new Service();)
-    // car Spring la recherche directement dans le bean correspondant, ce qui nous permet d'utiliser
-    // les méthodes du bean injecté
+    // On a plus besoin de déclarer la variable Service ici de la manière "Service service = new Service();"
+    // c'est à dire qu'on a plus besoin de faire une implémentation car Spring la recherche directement
+    // dans le bean correspondant, ce qui nous permet d'utiliser les méthodes du bean injecté
     @Autowired
     ServicesClientOrder service;
 
