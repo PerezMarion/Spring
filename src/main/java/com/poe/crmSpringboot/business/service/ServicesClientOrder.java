@@ -42,4 +42,15 @@ public class ServicesClientOrder {
         }
         return false;
     }
+
+    public boolean updateClient(Client newDataClient) {
+        for(Client oldDataClient : clients) {
+            if(oldDataClient.getId().equals(newDataClient.getId())) {
+                clients.remove(oldDataClient);
+                clients.add(newDataClient);
+                return true;
+            }
+        }
+        return false;
+    }
 }
