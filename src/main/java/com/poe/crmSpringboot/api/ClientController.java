@@ -33,7 +33,7 @@ public class ClientController {
 
     @GetMapping("clients/{id}")
     // @PathVariable : liaison entre le paramètre "id" de la méthode et l'uri de la requête http
-    public ResponseEntity<Client> findClientbyId(@PathVariable("id") Long id) {
+    public ResponseEntity<Client> findClientById(@PathVariable("id") Long id) {
 
         Optional<Client> oc = service.findClientById(id);
         if(oc.isPresent()) {

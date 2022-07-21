@@ -1,7 +1,9 @@
 package com.poe.crmSpringboot.business.service;
 
 import com.poe.crmSpringboot.business.Client;
+import com.poe.crmSpringboot.business.Order;
 import com.poe.crmSpringboot.dao.ClientRepository;
+import com.poe.crmSpringboot.dao.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 @Service
 public class ServicesClientOrder {
 
+// --------------------------------------------- Partie Client --------------------------------------------- //
 // -------------------------- Avec utilisation de l'interface ClientRepository ----------------------------- //
 
     @Autowired
@@ -47,6 +50,7 @@ public class ServicesClientOrder {
         }
     }
 
+// --------------------------------------------- Partie Client --------------------------------------------- //
 // ------------------------- Avant utilisation de l'interface ClientRepository ----------------------------- //
 
     //ArrayList<Client> clients = new ArrayList<>();
@@ -91,4 +95,39 @@ public class ServicesClientOrder {
         //}
         //return false;
     //}
+
+// --------------------------------------------- Partie Order --------------------------------------------- //
+
+    @Autowired
+    OrderRepository orderRepository;
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public Optional<Order> findOrderById(Long id) {
+        return orderRepository.findById(id);
+    }
+
+    public void addOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    public boolean deleteOrder(Long id) {
+        if(orderRepository.existsById(id)) {
+            orderRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateOrder(Order order) {
+        if(orderRepository.existsById(order.getId())) {
+            orderRepository.save(order);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
