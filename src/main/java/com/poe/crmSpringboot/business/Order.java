@@ -11,7 +11,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "tpePresta")
+    @Column(name = "typePresta")
     private String typePresta;
     private String designation;
     @Column(name = "nbDays")
@@ -20,16 +20,22 @@ public class Order {
     private float unitPrice;
     private OrderState state;
 
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
+
     public Order() {
     }
 
-    public Order(Long id, String typePresta, String designation, int nbDays, float unitPrice, OrderState state) {
+    public Order(Long id, String typePresta, String designation, int nbDays, float unitPrice,
+                 OrderState state, Client client) {
         this.id = id;
         this.typePresta = typePresta;
         this.designation = designation;
         this.nbDays = nbDays;
         this.unitPrice = unitPrice;
         this.state = state;
+        this.client = client;
     }
 
     public Long getId() {
@@ -80,9 +86,18 @@ public class Order {
         this.state = state;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public String toString() {
         return "Order{" + "id=" + id + ", typePresta='" + typePresta + '\'' + ", designation='" + designation
-                + '\'' + ", nbDays=" + nbDays + ", unitPrice=" + unitPrice + ", state=" + state + '}';
+                + '\'' + ", nbDays=" + nbDays + ", unitPrice=" + unitPrice + ", state=" + state
+                + ", client=" + client + '}';
     }
 }

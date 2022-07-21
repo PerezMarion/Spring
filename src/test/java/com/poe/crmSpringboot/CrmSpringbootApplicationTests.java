@@ -20,20 +20,29 @@ class CrmSpringbootApplicationTests {
 	@Autowired
 	ClientRepository clientRepository;
 
-	@Test
-	void contextLoads() {
-
-		Client client = new Client();
-		client.setFirstName("Alain");
-		client.setLastName("Delon");
-		service.addClient(client);
-
-		Assertions.assertEquals(1, service.getAllClients().size());
-	}
 
 	@Test
 	void testClientRepository() {
 		List<Client> sqlClients = clientRepository.findAll();
 		Assertions.assertTrue(sqlClients.size() > 0);
+	}
+
+	@Test
+	void testFindAllClientByCompanyName() {
+		List<Client> clientsGoogle = clientRepository.findAllClientByCompanyName("Google");
+		Assertions.assertTrue(clientsGoogle.size() > 0);
+		for(Client client: clientsGoogle){
+			System.out.println(client);
+		}
+	}
+
+	@Test
+	void testFindAllClientByFistNameAndLastName() {
+		List<Client> clientsGoogle = clientRepository.
+				findAllClientByFirstNameAndLastName("Fabrice", "Martin");
+		Assertions.assertTrue(clientsGoogle.size() > 0);
+		for(Client client: clientsGoogle){
+			System.out.println(client);
+		}
 	}
 }
