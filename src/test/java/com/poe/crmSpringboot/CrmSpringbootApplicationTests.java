@@ -1,6 +1,7 @@
 package com.poe.crmSpringboot;
 
 import com.poe.crmSpringboot.business.Client;
+import com.poe.crmSpringboot.business.Order;
 import com.poe.crmSpringboot.business.service.ServicesClientOrder;
 import com.poe.crmSpringboot.dao.ClientRepository;
 import org.junit.jupiter.api.Assertions;
@@ -9,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class CrmSpringbootApplicationTests {
 
-	// Ici pas besoin de faire Service service = new Service() grace à l'anotation
-	@Autowired
-    ServicesClientOrder service;
-
+	// Ici pas besoin de faire ClientRepository clientRepository = new ClientRepository() grace à l'annotation
 	@Autowired
 	ClientRepository clientRepository;
 
@@ -28,8 +27,8 @@ class CrmSpringbootApplicationTests {
 	}
 
 	@Test
-	void testFindAllClientByCompanyName() {
-		List<Client> clientsGoogle = clientRepository.findAllClientByCompanyName("Google");
+	void testFindAllClientsByCompanyName() {
+		List<Client> clientsGoogle = clientRepository.findAllClientsByCompanyName("Google");
 		Assertions.assertTrue(clientsGoogle.size() > 0);
 		for(Client client: clientsGoogle){
 			System.out.println(client);
@@ -37,12 +36,23 @@ class CrmSpringbootApplicationTests {
 	}
 
 	@Test
-	void testFindAllClientByFistNameAndLastName() {
+	void testFindAllClientsByFistNameAndLastName() {
 		List<Client> clientsGoogle = clientRepository.
-				findAllClientByFirstNameAndLastName("Fabrice", "Martin");
+				findAllClientsByFirstNameAndLastName("Fabrice", "Martin");
 		Assertions.assertTrue(clientsGoogle.size() > 0);
 		for(Client client: clientsGoogle){
 			System.out.println(client);
+		}
+	}
+
+	@Test
+	void testOneToMany() {
+		Optional<Client> oc = clientRepository.findById(1L);
+		if(oc.isPresent()) {
+			Client client = oc.get();
+			for(Order order : client.getOrders()) {
+				System.out.println(order);
+			}
 		}
 	}
 }

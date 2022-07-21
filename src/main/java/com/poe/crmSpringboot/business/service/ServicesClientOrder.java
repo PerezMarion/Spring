@@ -50,6 +50,14 @@ public class ServicesClientOrder {
         }
     }
 
+    public List<Client> findAllClientsByCompanyName(String companyName) {
+        return clientRepository.findAllClientsByCompanyName(companyName);
+    }
+
+    public List<Client> findAllClientsByFirstNameAndLastName(String firstname, String lastName) {
+        return clientRepository.findAllClientsByFirstNameAndLastName(firstname, lastName);
+    }
+
 // --------------------------------------------- Partie Client --------------------------------------------- //
 // ------------------------- Avant utilisation de l'interface ClientRepository ----------------------------- //
 

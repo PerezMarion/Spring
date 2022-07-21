@@ -78,8 +78,28 @@ public class ClientController {
                 return ResponseEntity.status(HttpStatus.OK).build();
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).
-                        body("Lidentifiant ne correspond à aucun client");
+                        body("L'identifiant ne correspond à aucun client");
             }
         }
+    }
+
+    @GetMapping("searchbycn")
+    // @RequestParam : liaison entre le paramètre "companyname" correspondante a "companyName" de la méthode et
+    // l'uri de la requête http qui sera sous la forme http://localhost:8080/api/searchbycn?companyname=...
+    public List<Client> findAllClientsByCompanyName
+            (@RequestParam(value="companyname") String companyName) {
+
+        System.out.println("Compagnie : " + companyName);
+        return service.findAllClientsByCompanyName(companyName);
+    }
+
+    @GetMapping("searchbyfnln")
+    // uri de la requête http sous la forme http://localhost:8080/api/searchbyfnln?firstname=...&lastname=...
+    public List<Client> findAllClientsByFirstNameAndLastName
+            (@RequestParam(value="firstname") String firstName,
+             @RequestParam(value="lastname") String lastName) {
+
+        System.out.println("Identite : " + firstName + " " + lastName);
+        return service.findAllClientsByFirstNameAndLastName(firstName, lastName);
     }
 }

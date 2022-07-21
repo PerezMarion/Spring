@@ -1,6 +1,7 @@
 package com.poe.crmSpringboot.business;
 
 import javax.persistence.*;
+import java.util.List;
 
 // Classe avec code métier d'où le package business
 @Entity
@@ -27,8 +28,10 @@ public class Client {
     private String zipCode;
     private String city;
     private String country;
-
     private ClientState state;
+
+    @OneToMany(mappedBy="client", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
     public Client() {
     }
@@ -133,6 +136,14 @@ public class Client {
 
     public void setState(ClientState state) {
         this.state = state;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
