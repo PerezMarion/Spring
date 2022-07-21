@@ -3,7 +3,6 @@ package com.poe.crmSpringboot.dao;
 import com.poe.crmSpringboot.business.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 // Création d'une interface ClientRepository qui étend JpaRepository

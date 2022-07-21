@@ -1,7 +1,6 @@
 package com.poe.crmSpringboot.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 // Classe avec code métier d'où le package business
