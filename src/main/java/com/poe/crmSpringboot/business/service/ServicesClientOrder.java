@@ -58,6 +58,18 @@ public class ServicesClientOrder {
         return clientRepository.findAllClientsByFirstNameAndLastName(firstname, lastName);
     }
 
+    public float calculateExpense(Long clientId) {
+        float total = 0F;
+        Optional<Client> oc = clientRepository.findById(clientId);
+        if(oc.isPresent()) {
+            Client client = oc.get();
+            for(Order order : client.getOrders()) {
+                total = total + order.getNbDays()* order.getUnitPrice();
+            }
+        }
+        return total;
+    }
+
 // --------------------------------------------- Partie Client --------------------------------------------- //
 // ------------------------- Avant utilisation de l'interface ClientRepository ----------------------------- //
 

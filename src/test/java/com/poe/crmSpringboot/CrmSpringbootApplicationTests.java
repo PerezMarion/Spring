@@ -19,6 +19,8 @@ class CrmSpringbootApplicationTests {
 	@Autowired
 	ClientRepository clientRepository;
 
+	@Autowired
+	ServicesClientOrder service;
 
 	@Test
 	void testClientRepository() {
@@ -54,5 +56,10 @@ class CrmSpringbootApplicationTests {
 				System.out.println(order);
 			}
 		}
+	}
+
+	@Test
+	void testCalculateExpense() {
+		float total = service.calculateExpense(1L);
 	}
 }

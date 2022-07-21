@@ -1,5 +1,7 @@
 package com.poe.crmSpringboot.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 // Classe avec code métier d'où le package business
@@ -22,20 +24,25 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "clientId")
+    // @JsonIgnore : utilisé pour ignorer les attributs ou les interfaces qui ne veulent pas être passés
+    // au premier plan lorsque la classe d'entité renvoie des données au premier plan.
+    // Quand on utilise la méthode listant les orders liées à un client, on commence dans la table clients,
+    // puis on va chercher dans la table orders les orders correspondant, mais les orders étant aussi lié à
+    // un client (relation bidirectionnelle) cela va nous ramener vers la table clients etc
+    // Ici l'annotation permet de couper le cycle après être passé de clients à orders
+    @JsonIgnore
     private Client client;
 
     public Order() {
     }
 
-    public Order(Long id, String typePresta, String designation, int nbDays, float unitPrice,
-                 OrderState state, Client client) {
+    public Order(Long id, String typePresta, String designation, int nbDays, float unitPrice, OrderState state) {
         this.id = id;
         this.typePresta = typePresta;
         this.designation = designation;
         this.nbDays = nbDays;
         this.unitPrice = unitPrice;
         this.state = state;
-        this.client = client;
     }
 
     public Long getId() {
