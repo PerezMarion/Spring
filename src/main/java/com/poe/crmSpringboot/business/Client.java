@@ -28,11 +28,13 @@ public class Client {
     private String city;
     private String country;
 
+    private ClientState state;
+
     public Client() {
     }
 
-    public Client(String companyName, String firstName, String lastName, String email,
-                  String phone, String address, String zipCode, String city, String country) {
+    public Client(String companyName, String firstName, String lastName, String email, String phone,
+                  String address, String zipCode, String city, String country, ClientState state) {
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +44,7 @@ public class Client {
         this.zipCode = zipCode;
         this.city = city;
         this.country = country;
+        this.state = state;
     }
 
     public Long getId() {
@@ -124,11 +127,19 @@ public class Client {
         this.country = country;
     }
 
+    public ClientState getState() {
+        return state;
+    }
+
+    public void setState(ClientState state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", companyName='" + companyName + '\'' +
-                ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' + ", phone='" + phone + '\'' + ", address='" + address + '\'' +
-                ", zipCode='" + zipCode + '\'' + ", city='" + city + '\'' + ", country='" + country + '}';
+        return "Client{" + "id=" + id + ", companyName='" + companyName + '\'' + ", firstName='" + firstName
+                + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", phone='" + phone
+                + '\'' + ", address='" + address + '\'' + ", zipCode='" + zipCode + '\'' + ", city='" + city
+                + '\'' + ", country='" + country + '\'' + ", state='" + state + '}';
     }
 }
