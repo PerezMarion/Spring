@@ -1,11 +1,15 @@
 package com.poe.crmSpringboot.api;
 
+import com.poe.crmSpringboot.api.dto.ClientDto;
+import com.poe.crmSpringboot.api.dto.ClientMapper;
 import com.poe.crmSpringboot.business.Client;
 import com.poe.crmSpringboot.business.service.ServicesClientOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,21 +30,29 @@ public class ClientController {
     // @GetMapping : traitement d'une requête http GET et mapping de cette requête
     // Equivalent à une annotation @GET + une annotation @RequestMapping
     @GetMapping("clients")
-    public List<Client> getAllClients() {
+    public List<ClientDto> getAllClients() {
 
-        return service.getAllClients();
+        List<ClientDto> visibleList = new ArrayList<>();
+        for(Client client : service.getAllClients()) {
+            ClientDto clientDto = ClientMapper.convertClientToClientDto(client);
+            clientDto.setTotalExpense(service.calculateExpense(client.getId()));
+            visibleList.add(clientDto);
+        }
+        return visibleList;
     }
 
     @GetMapping("clients/{id}")
     // @PathVariable : liaison entre le paramètre "id" de la méthode et l'uri de la requête http
-    public ResponseEntity<Client> findClientById(@PathVariable("id") Long id) {
+    public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
 
         Optional<Client> oc = service.findClientById(id);
         if(oc.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(oc.get());
+            Client client = oc.get();
+            ClientDto clientDto = ClientMapper.convertClientToClientDto(client);
+            clientDto.setTotalExpense(service.calculateExpense(client.getId()));
+            return ResponseEntity.status(HttpStatus.OK).body(clientDto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
         }
     }
 
